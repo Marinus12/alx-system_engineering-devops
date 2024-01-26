@@ -1,5 +1,5 @@
 #1/usr/bin/env bash
-# This cript displays the content of the file /etc/passwd, using the
+# This script displays the content of the file /etc/passwd, using the
 # while loop + IFS
 
 while IFS=":" read -r username password uid gid comment home shell; do
