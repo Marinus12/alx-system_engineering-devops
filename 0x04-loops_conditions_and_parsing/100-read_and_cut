@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # This script displays the contet of the file /etc/passwd
 
-while IFS=":" read -r username uid comment home shell; do
-	echo "$username:$uid:$home"
-done < /etc/passwd
+while IFS= read -r contents; do
+	echo "$contents" | cut -f 1,3,6 -d ':'
+done < "/etc/passwd"
