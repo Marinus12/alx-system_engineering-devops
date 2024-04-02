@@ -26,6 +26,7 @@ defaults
     timeout server 50000
 
 frontend http_front
+    timeout client  30000
     bind *:80
     default_backend http_back
 
@@ -39,7 +40,7 @@ EOF
 sudo sed -i "s/183513/183513/g" /etc/haproxy/haproxy.cfg
 
 # Restart HAProxy to apply changes
-sudo systemctl restart haproxy
+sudo service haproxy restart
 
 # Enable HAProxy init script
-sudo systemctl enable haproxy
+sudo service haproxy enable
