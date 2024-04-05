@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Print domains and subdomains
+
+get_subdomain_info() {
+    local domain=$1
+    local subdomain=$2
+
+    # Execute dig command to retrieve DNS information
+    dig_output=$(dig $subdomain.$domain +short)
+
+    # Extract record type and destination from dig output
+    record_type=$()echo "$dig_output" | awk '{ print $2 }')
+    destination=$(echo "$dig_output" | awk 'NR==1')
+
+    # Display information about the subdomain
+    echo "The subdomain $subdomain is a $record_type record and points to $destination"
+}
+
+# Main function
+main() {
+    local domain=$1
+    local subdomain=$2
+
+    if [ -z "$subdomain" ]; then
+        subdomains("www" "lb-01" "web-01" "web-02")
+    else
+        subdomain("$subdomain")
+    fi
+
+    # Iterate over subdomains and display information
+    for sub in "${subdomains[@]}"; do
+        get_subdomain_info "$domain" "$sub"
+    done
+}
+
+# Check if domain argument is provided
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <domain> [subdomain]"
+    exit 1
+fi
+
+# Call main function with provided arguments
+main "$1" "$2"
