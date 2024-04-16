@@ -1,19 +1,9 @@
 #!/usr/bin/env bash
+# Replace user directive in nginx.conf
+sed -i 's/^user .*$/user nginx;/' /etc/nginx/nginx.conf
 
-# Check if the nginx user exists
-if ! id nginx &>/dev/null; then
-    echo "Error: nginx user does not exist."
-    exit 1
-fi
+# Replace port number in the default site configuration
+sed -i 's/listen 80;/listen 8080;/g' /etc/nginx/sites-available/default
 
-# Update nginx.conf to use the nginx user
-sed -i 's/#user www-data;/user nginx;/' /etc/nginx/nginx.conf
-
-# Update default site configuration to listen on port 8080
-sed -i 's/listen\s*80;/listen 8080;/g' /etc/nginx/sites-available/default
-
-# Set more restrictive permissions on nginx.conf
-chmod 644 /etc/nginx/nginx.conf
-
-# Restart Nginx service to apply changes
+# Restart nginx service
 service nginx restart
