@@ -19,8 +19,8 @@
 # Default server configuration
 #
 #upstream backend_server {
-#	server 172.67.179.206;
-#	server 52.86.102.6:80;
+#	server 54.157.143.129;
+#	server 100.25.191.64:80;
 #}
 #
 server {
@@ -48,7 +48,7 @@ server {
  	# Add index.php to the list if you are using PHP
 	index index.html index.htm index.nginx-debian.html;
 
-	server_name web-01.sammykingx.tech;
+	server_name web-01.iamdubem.tech;
 	try_files $uri $uri/ =404;
 
 	location / {
@@ -68,7 +68,7 @@ server {
 	}
 
 	location = /redirect_me {
-		return 301 $scheme://youtube.com/@sammykingx;
+		return 301 $scheme://youtube.com/@iamdubem.tech;
 	}
 
 	location = /airbnb-onepage {
